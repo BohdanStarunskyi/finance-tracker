@@ -29,7 +29,7 @@ export class AuthService {
       throw new HttpException('Incorrect email or password', HttpStatus.BAD_REQUEST);
     }
 
-    return { email: request?.email } as User;
+    return { id: result.id, email: request?.email } as User;
   }
 
   async signIn(request: AuthRequestDto): Promise<User> {
@@ -43,14 +43,13 @@ export class AuthService {
       throw new HttpException('User already registered', HttpStatus.BAD_REQUEST);
     }
 
-    await this.userRepository.insert(
+    const result = await this.userRepository.insert(
       new UserEntity({
         email: request?.email,
         password: hashedPassword,
       }),
     );
-
-    return { email: request.email } as User;
+    return { id: +result.identifiers[0].id, email: request.email } as User;
   }
 
   async hashPassword(password: string): Promise<string> {

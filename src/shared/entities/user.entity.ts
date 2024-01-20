@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { CategoryEntity } from "./category.entity";
 
 @Entity('tbl_users')
 export class UserEntity {
@@ -10,6 +11,9 @@ export class UserEntity {
 
     @Column()
     password: string;
+
+    @OneToMany(() => CategoryEntity, (category) => category.user)
+    category: CategoryEntity;
 
     constructor(user: Partial<UserEntity>) {
         Object.assign(this, user);
