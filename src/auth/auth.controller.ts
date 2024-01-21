@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthRequestDto, AuthResponseDto } from './models/login';
 import { JwtAuthService } from 'src/shared/jwt/jwt.service';
@@ -11,14 +11,14 @@ export class AuthController {
     ) {}
 
   @Post("/auth/login")
-  async login(@Body() loginDto: AuthRequestDto) {
+  async login(@Body(new ValidationPipe({ whitelist: true })) loginDto: AuthRequestDto) {
     const resp = await this.authService.login(loginDto);
     const token = await this.jwtService.signPayload(resp)
     return new AuthResponseDto({token: token})
   }
 
   @Post("/auth/sign-in")
-  async signIn(@Body() signInDto: AuthRequestDto){
+  async signIn(@Body(new ValidationPipe({ whitelist: true })) signInDto: AuthRequestDto){
     const resp = await this.authService.signIn(signInDto);
     const token = await this.jwtService.signPayload(resp)
     return new AuthResponseDto({token: token})
