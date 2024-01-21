@@ -3,7 +3,7 @@ import { IsNotEmpty, IsNumber, IsOptional } from "class-validator";
 import { CategoryDto } from "src/categories/models/categories";
 
 export class CreateExpenseDto {
-    @IsNotEmpty()
+    @IsOptional()
     name: string;
 
     @IsNotEmpty()
@@ -29,7 +29,7 @@ export class ExpenseDto {
     @IsNumber()
     id: number;
 
-    @IsNotEmpty()
+    @IsOptional()
     name: string;
 
     @IsNotEmpty()
