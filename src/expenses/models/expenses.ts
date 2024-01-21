@@ -57,7 +57,7 @@ export class UpdateExpenseDto {
     @IsNumber()
     id: number;
 
-    @IsNotEmpty()
+    @IsOptional()
     name: string;
 
     @IsNotEmpty()
