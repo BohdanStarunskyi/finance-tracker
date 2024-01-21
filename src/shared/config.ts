@@ -11,9 +11,7 @@ export const dbConfig: DataSourceOptions = {
     database: process.env.DB_NAME,
     entities: ['dist/shared/entities/**/*.{ts,js}'],
     migrations: ['dist/migrations/**/*.{ts,js}'],
-    ssl: {
-      rejectUnauthorized: false,
-    },
+    ssl: true
   };
 
   const dataSource: DataSource = new DataSource(dbConfig);

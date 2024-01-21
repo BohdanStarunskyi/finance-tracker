@@ -21,7 +21,7 @@ export class AuthService {
     }
 
     const result = await this.userRepository.findOne({
-      select: { email: true, password: true },
+      select: { id: true, email: true, password: true },
       where: { email: request?.email },
     });
 
@@ -29,7 +29,7 @@ export class AuthService {
       throw new HttpException('Incorrect email or password', HttpStatus.BAD_REQUEST);
     }
 
-    return { id: result.id, email: request?.email } as User;
+    return { id: result?.id, email: request?.email } as User;
   }
 
   async signIn(request: AuthRequestDto): Promise<User> {
