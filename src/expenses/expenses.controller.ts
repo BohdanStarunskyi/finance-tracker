@@ -1,20 +1,21 @@
 import { Body, Controller, DefaultValuePipe, Delete, Get, Headers, HttpException, HttpStatus, Param, ParseIntPipe, Post, Put, Query, UseGuards, ValidationPipe } from "@nestjs/common";
+import { validate } from "class-validator";
 import { AuthGuard } from "src/shared/guards/auth.guard";
 import { JwtAuthService } from "src/shared/jwt/jwt.service";
-import { CategoriesService } from "./categories.service";
-import { CategoryDto, CreateCategoryDto } from "./models/categories";
+import { ExpensesService } from "./expenses.service";
+import { CreateExpenseDto, ExpenseDto, UpdateExpenseDto } from "./models/expenses";
 
 @Controller("/api")
-export class CategoriesController {
-   
+export class ExpensesController {
+
     constructor(
         private readonly jwtAuthService: JwtAuthService,
-        private readonly categoriesService: CategoriesService,
+        private readonly expensesService: ExpensesService,
     ) { }
-    
-    @Get('/category/:id')
+
+    @Get('/expense/:id')
     @UseGuards(AuthGuard)
-    async getCategory(
+    async getExpense(
         @Headers('authorization') token: string,
         @Param("id") id: number
     ) {
@@ -22,51 +23,51 @@ export class CategoriesController {
             throw new HttpException("id shouldn't be empty", HttpStatus.BAD_REQUEST);
         }
         const user = await this.jwtAuthService.decode(token);
-        return await this.categoriesService.getCategoryDto(id, user);
+        return await this.expensesService.getExpenseDto(id, user);
     }
 
-    @Get('/categories')
+    @Get('/expenses')
     @UseGuards(AuthGuard)
-    async getCategories(
+    async getExpenses(
         @Headers('authorization') token: string,
         @Query('offset', new DefaultValuePipe(0), ParseIntPipe) offset: number = 0,
         @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10
     ) {
         const user = await this.jwtAuthService.decode(token);
-        return await this.categoriesService.getCategories(offset, limit, user);
+        return await this.expensesService.getExpenses(offset, limit, user);
     }
 
-    @Post('/category/add')
+    @Post('/expense/add')
     @UseGuards(AuthGuard)
-    async addCategory(
+    async addExpense(
         @Headers('authorization') token: string,
-        @Body(new ValidationPipe({ whitelist: true })) category: CreateCategoryDto
+        @Body(new ValidationPipe({ whitelist: true })) expense: CreateExpenseDto
     ) {
         const user = await this.jwtAuthService.decode(token);
-        return await this.categoriesService.createCategory(category, user);
+        return await this.expensesService.createExpense(expense, user);
     }
 
-    @Put('/category/update')
+    @Put('/expense/update')
     @UseGuards(AuthGuard)
-    async editCategory(
+    async editExpense(
         @Headers('authorization') token: string,
-        @Body(new ValidationPipe({ whitelist: true })) category: CategoryDto
-    ){
+        @Body(new ValidationPipe({ whitelist: true })) expense: UpdateExpenseDto
+    ) {
         const user = await this.jwtAuthService.decode(token);
-        return await this.categoriesService.updateCategory(category, user);
+        return await this.expensesService.updateExpense(expense, user);
     }
 
-    @Delete('/category/delete/:id')
+    @Delete('/expense/delete/:id')
     @UseGuards(AuthGuard)
-    async deleteCategory(
+    async deleteExpense(
         @Headers('authorization') token: string,
         @Param("id") id: number
-    ){
+    ) {
         if (!id) {
             throw new HttpException("id shouldn't be empty", HttpStatus.BAD_REQUEST);
         }
         const user = await this.jwtAuthService.decode(token);
-        return await this.categoriesService.deleteCategory(id, user);
+        return await this.expensesService.deleteExpense(id, user);
     }
 
 }

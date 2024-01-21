@@ -1,4 +1,4 @@
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty, IsNumber } from "class-validator";
 
 export class CreateCategoryDto {
     @IsNotEmpty()
@@ -12,7 +12,11 @@ export class CreateCategoryDto {
 }
 
 export class CategoryDto {
+    @IsNotEmpty()
+    @IsNumber()
     id: number; 
+
+    @IsNotEmpty()
     name: string;
 
     constructor(

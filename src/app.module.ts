@@ -4,6 +4,7 @@ import { DbModule } from './shared/db/db.module';
 import { ConfigModule } from '@nestjs/config';
 import { JwtAuthModule } from './shared/jwt/jwt.module';
 import { CategoriesModule } from './categories/categories.module';
+import { ExpensesModule } from './expenses/expenses.module';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { CategoriesModule } from './categories/categories.module';
     JwtAuthModule,
     DbModule,
     AuthModule,
-    CategoriesModule
+    CategoriesModule,
+    ExpensesModule
   ],
   controllers: [],
   providers: [],
