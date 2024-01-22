@@ -1,4 +1,4 @@
-[Finance tracker.postman_collection.json](https://github.com/BohdanStarunskyi/finance-tracker/files/14007747/Finance.tracker.postman_collection.json)# Finance Tracker Backend
+# Finance Tracker API
 This is a REST API for finance tracking app, functionality:
 - login/sign in
 - get, create, edit and delete categories of spendings
