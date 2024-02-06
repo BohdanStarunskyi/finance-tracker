@@ -10,6 +10,12 @@ export class CategoryEntity {
     @Column()
     name: string;
 
+    @Column({nullable: true})
+    emoji: string;
+
+    @Column({nullable:false, default: "FFFFFF"})
+    color: string;
+
     @ManyToOne(() => UserEntity, (user) => user.id)
     @JoinColumn({name: 'user_id'})
     user: UserEntity;
