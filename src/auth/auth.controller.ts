@@ -17,9 +17,9 @@ export class AuthController {
     return new AuthResponseDto({token: token})
   }
 
-  @Post("/auth/sign-in")
-  async signIn(@Body(new ValidationPipe({ whitelist: true })) signInDto: AuthRequestDto){
-    const resp = await this.authService.signIn(signInDto);
+  @Post("/auth/sign-up")
+  async signUp(@Body(new ValidationPipe({ whitelist: true })) signInDto: AuthRequestDto){
+    const resp = await this.authService.signUp(signInDto);
     const token = await this.jwtService.signPayload(resp)
     return new AuthResponseDto({token: token})
   }

@@ -32,7 +32,7 @@ export class AuthService {
     return { id: result?.id, email: request?.email } as User;
   }
 
-  async signIn(request: AuthRequestDto): Promise<User> {
+  async signUp(request: AuthRequestDto): Promise<User> {
     const hashedPassword = await this.hashPassword(request?.password);
 
     const existingUser = await this.userRepository.findOne({
