@@ -38,7 +38,8 @@ Put variables:
 - host (put your host addres)
 - token (put token you get during authorization)
   
-[Finance tracker.postman_collection.json](https://github.com/BohdanStarunskyi/finance-tracker/files/14179641/Finance.tracker.postman_collection.json)
+[Finance tracker.postman_collection.json](https://github.com/BohdanStarunskyi/finance-tracker/files/14179659/Finance.tracker.postman_collection.json)
+
 
 ## API Documentation
 Authorization (API Token)
@@ -57,7 +58,6 @@ Pong
 ### POST /api/auth/sign-up
 
 ```
-
 {
     "email": string,
     "password": string
