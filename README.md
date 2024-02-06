@@ -54,7 +54,7 @@ response:
 Pong
 ```
 
-### POST /api/auth/sign-in
+### POST /api/auth/sign-up
 
 ```
 {
