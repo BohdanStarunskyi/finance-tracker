@@ -259,6 +259,9 @@ offset: int
 ```
 limit: int
 ```
+```
+categoryId: int | optional
+```
 response:
 ```
 [
