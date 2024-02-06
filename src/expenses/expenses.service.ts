@@ -7,6 +7,7 @@ import { IdDto } from "src/shared/model/basic";
 import { User } from "src/shared/model/user";
 import { Repository } from "typeorm";
 import { CreateExpenseDto, ExpenseDto, UpdateExpenseDto } from "./models/expenses";
+import { CategoryDto } from "src/categories/models/categories";
 
 @Injectable()
 export class ExpensesService {
@@ -63,8 +64,8 @@ export class ExpensesService {
             amount: expense?.amount,
             name: expense?.name,
             note: expense?.note,
-            user: new UserEntity({id: user?.id}),
-            category: new CategoryEntity({id: expense.categoryId})
+            user: new UserEntity({ id: user?.id }),
+            category: new CategoryEntity({ id: expense.categoryId })
         })
         const result = await this.expenseRepository.save(entity);
         return new ExpenseDto(result);
@@ -83,15 +84,19 @@ export class ExpensesService {
         return new ExpenseDto(await this.getExpenseEntity(id, user));
     }
 
-    async getExpenses(offset: number, limit: number, user: User): Promise<ExpenseDto[]> {
+    async getExpenses(offset: number, limit: number, user: User, categoryId?: number): Promise<ExpenseDto[]> {
+        let whereCondition: any = { user: { id: user?.id } };
+
+        if (categoryId) {
+            whereCondition.categoryId = categoryId;
+        }
         return await this.expenseRepository.find({
-            where: { user: { id: user?.id } },
+            where: whereCondition,
             order: { id: 'DESC' },
             take: limit,
             skip: offset,
             relations: ['category']
         });
     }
-
 
 }

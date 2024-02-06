@@ -31,7 +31,8 @@ export class ExpensesController {
     async getExpenses(
         @Headers('authorization') token: string,
         @Query('offset', new DefaultValuePipe(0), ParseIntPipe) offset: number = 0,
-        @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10
+        @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+        @Query('categoryId') categoryId?: number
     ) {
         const user = await this.jwtAuthService.decode(token);
         return await this.expensesService.getExpenses(offset, limit, user);
