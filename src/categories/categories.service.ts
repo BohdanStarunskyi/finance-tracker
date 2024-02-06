@@ -29,7 +29,9 @@ export class CategoriesService {
         const result = await this.categoryRepository.insert(
             new CategoryEntity({
                 name: request?.name,
-                user: new UserEntity({ id: user?.id })
+                user: new UserEntity({ id: user?.id }),
+                color: request?.color,
+                emoji: request?.emoji
             })
         );
         return new CategoryDto({ id: +result?.identifiers[0]?.id, name: request.name })
