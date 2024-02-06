@@ -90,14 +90,18 @@ response:
 request:
 ```
 {
-    "name": string
+    "name": string,
+    "emoji": string | optional,
+    "color": string (format and default: "FFFFFF")
 }
 ```
 response:
 ```
 {
     "id": int,
-    "name": string
+    "name": string,
+    "emoji": string | optional,
+    "color": string (format and default: "FFFFFF")
 }
 ```
 
@@ -107,14 +111,18 @@ request:
 ```
 {
     "id": int,
-    "name": string
+    "name": string,
+    "emoji": string | optional,
+    "color": string (format and default: "FFFFFF")
 }
 ```
 response:
 ```
 {
     "id": int,
-    "name": string
+    "name": string,
+    "emoji": string | optional,
+    "color": string (format and default: "FFFFFF")
 }
 ```
 
@@ -133,7 +141,9 @@ response:
 ```
 {
     "id": int,
-    "name": string
+    "name": string,
+    "emoji": string | optional,
+    "color": string (format and default: "FFFFFF")
 }
 ```
 
@@ -151,7 +161,9 @@ response:
 [
     {
         "id": int,
-        "name": string
+        "name": string,
+        "emoji": string | optional,
+        "color": string (format and default: "FFFFFF")
     }
 ]
 ```
