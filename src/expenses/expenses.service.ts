@@ -86,10 +86,10 @@ export class ExpensesService {
 
     async getExpenses(offset: number, limit: number, user: User, categoryId?: number): Promise<ExpenseDto[]> {
         let whereCondition: any = { user: { id: user?.id } };
-
         if (categoryId) {
-            whereCondition.categoryId = categoryId;
+            whereCondition = {category: new CategoryEntity({id: categoryId})};
         }
+
         return await this.expenseRepository.find({
             where: whereCondition,
             order: { id: 'DESC' },
