@@ -25,7 +25,18 @@ export class CategoriesService {
         return property;
     }
 
+    async checkIfUniqueByName(name: string, user: User): Promise<CategoryEntity> {
+        const property = await this.categoryRepository.findOne({
+            where: { name: name, user: {id: user.id} }
+        });
+        if(property){
+            throw new HttpException("such category already exists", HttpStatus.BAD_REQUEST);
+        }
+        return property;
+    }
+
     async createCategory(request: CreateCategoryDto, user: User): Promise<CategoryDto> {
+        await this.checkIfUniqueByName(request.name, user);
         const result = await this.categoryRepository.insert(
             new CategoryEntity({
                 name: request?.name,
