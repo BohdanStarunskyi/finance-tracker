@@ -1,5 +1,6 @@
-import { IsHexColor, IsNotEmpty, IsNumber, IsOptional, Validate } from "class-validator";
-import { ContainsEmoji, IsEmoji } from "src/shared/validators/emoji.validator";
+import { IsHexColor, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsEmoji } from "src/shared/validators/emoji.validator";
+import { IsHexString6 } from "src/shared/validators/hex.validator";
 
 export class CreateCategoryDto {
     @IsNotEmpty()
@@ -10,7 +11,8 @@ export class CreateCategoryDto {
     emoji: string;
 
     @IsNotEmpty()
-    @IsHexColor()
+    @IsHexString6()
+    @IsString()
     color: string;
 
     constructor(
@@ -33,7 +35,8 @@ export class CategoryDto {
     emoji: string;
 
     @IsNotEmpty()
-    @IsHexColor()
+    @IsHexString6()
+    @IsString()
     color: string;
 
     constructor(
