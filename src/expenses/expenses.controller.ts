@@ -35,7 +35,7 @@ export class ExpensesController {
         @Query('categoryId') categoryId?: number
     ) {
         const user = await this.jwtAuthService.decode(token);
-        return await this.expensesService.getExpenses(offset, limit, user);
+        return await this.expensesService.getExpenses(offset, limit, user, categoryId);
     }
 
     @Post('/expense/add')
